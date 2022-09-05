@@ -34,5 +34,18 @@ namespace API.Controllers
         public async Task<ActionResult<Product>> GetProduct(int id) {
             return await _repo.GetProductByIdAsync(id);
         }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+        {
+            // cant directly return ireadonlylist type so need to wrap in Ok() response
+            return Ok(await _repo.GetProductBrandsAsync());
+        }
+
+         [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductTypes()
+        {
+            return Ok(await _repo.GetProductTypesAsync());
+        }
     }
 }
