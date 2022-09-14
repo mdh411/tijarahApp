@@ -1,3 +1,4 @@
+using API.Helpers;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,8 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +46,7 @@ namespace API
             app.UseHttpsRedirection(); // when we accidently use http it will redirect to https
 
             app.UseRouting(); // to access endpoints, must be routed via endpoints
+            app.UseStaticFiles();
 
             app.UseAuthorization(); 
 
